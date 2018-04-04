@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Contacts</title>
+
+    <!-- Font-awesome -->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"> -->
+
+    <!-- Custom Styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <form action="">
+            <label for="name">Name : </label>
+            <input type="text" name="name" id="name" placeholder="Full Name" required>
+            <label for="email">E-mail : </label>
+            <input type="text" name="email" id="email" placeholder="E-mail" required>
+            <label for="tel">Phone Number : </label>
+            <input type="tel" name="tel" id="tel" placeholder="Phone Number" required>
+            <!-- <label for="image">Add Image : </label>
+            <br>
+            <input type="file" name="image" id="image" required> -->
+            <input class="button addBtn" id="addBtn" type="submit" value="Add New Contact">
+
+        </form>
+
+
+        <div class="contacts contactDisplay">
+            <h1>Contacts</h1>
+            
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>

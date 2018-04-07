@@ -63,6 +63,11 @@ window.onload = function () {
     }
     showContacts();
 
+    // REFRESH PAGE
+    function refreshPage() {
+        location.reload();
+    }
+
     // DELETE AND EDIT FUNCTIONS
     function CloseInput() {
         //Hide the edit form once the edit button beside the form is clicked.
@@ -73,14 +78,12 @@ window.onload = function () {
         if (e.target.classList.contains("delBtn")) {
             // Get the actual delete button clicked onabort.
             var chosen = e.target.getAttribute("data-id");
-            
+
             contacts.splice(chosen, 1);
             localStorage['contactBook'] = JSON.stringify(contacts);
-            contactDisplay.innerHTML = '';
-            showContacts();
-            alert("Please refresh this page after deleting a contact.");
+            refreshPage();
         }
-        if(e.target.classList.contains("editBtn")){
+        if (e.target.classList.contains("editBtn")) {
             // Get all fields in new form
             var name = document.getElementById('edit-name');
             var email = document.getElementById('edit-email');
@@ -92,9 +95,9 @@ window.onload = function () {
             tel.value = contacts[id].tel;
             // Display fields in form
             document.getElementById('spoiler').style.display = 'block';
-            
+
             // On submitting the form...
-            document.getElementById('saveEdit').onsubmit = function() {
+            document.getElementById('saveEdit').onsubmit = function () {
                 var newName = name.value;
                 var newEmail = email.value;
                 var newTel = tel.value;
@@ -106,26 +109,27 @@ window.onload = function () {
                 localStorage['contactBook'] = JSON.stringify(contacts);
                 // Close the form
                 CloseInput();
+                refreshPage();
             }
         }
     })
 
     // ACCORDION FUNCTION
-        var acc = document.getElementsByClassName("accordion");
-        var i;
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                /* Toggle "active" class */
-                this.classList.toggle("active");
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            /* Toggle "active" class */
+            this.classList.toggle("active");
 
-                /* Toggle hiding and showing the active panel */
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
+            /* Toggle hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
 }

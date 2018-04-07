@@ -1,26 +1,29 @@
 window.onload = function () {
+    // Access all the fields needed from the html file
     const addBtn = document.getElementById("addBtn");
     const delBtn = document.getElementById("delBtn");
     const name = document.getElementById("name");
     const email = document.getElementById("email");
     const tel = document.getElementById("tel");
+    const editBtn = document.getElementById("editBtn");
 
     let contacts = document.querySelector(".contacts");
     const contactDisplay = document.querySelector(".contactDisplay");
 
     contacts = [
         {
-            name:"Xeenarh Abah",        
-            email:"xeebah@gmail.com",
-            tel:"07030000034"
+            name: "Xeenarh Abah",
+            email: "xeebah@gmail.com",
+            tel: "07030000034"
         },
         {
-            name:"Tolu Falana",        
-            email:"falu@mail.com",
-            tel:"07030000034"
-        }
+            name: "Tolu Falana",
+            email: "falu@mail.com",
+            tel: "07030000034"
+        },
     ];
 
+    // ADD NEW CONTACT
     function jsonStructure(name, email, tel) {
         this.name = name;
         this.email = email;
@@ -28,13 +31,17 @@ window.onload = function () {
     }
 
     addBtn.addEventListener("click", function () {
-        let newObj = new jsonStructure(name.value, email.value, tel.value);
-        contacts.push(newObj);
-        localStorage['contactBook'] = JSON.stringify(contacts);
-        clearForm();
+        var empty = name.value != '' && email.value != '' && tel.value != '';
+        if (empty) {
+            let newObj = new jsonStructure(name.value, email.value, tel.value);
+            contacts.push(newObj);
+            localStorage['contactBook'] = JSON.stringify(contacts);
+            clearForm();
+        }
 
     })
 
+    // CLEAR FORM AFTER ADDING NEW CONTACT
     function clearForm() {
         let myForm = document.querySelectorAll(".formFields");
         for (let i in myForm) {
@@ -42,6 +49,7 @@ window.onload = function () {
         }
     }
 
+    // DISPLAY ALL CONTACTS
     function showContacts() {
         if (localStorage['contactBook'] === undefined) {
             localStorage['contactBook'] = "[]";
@@ -55,31 +63,69 @@ window.onload = function () {
     }
     showContacts();
 
+    // DELETE AND EDIT FUNCTIONS
+    function CloseInput() {
+        //Hide the edit form once the edit button beside the form is clicked.
+        document.getElementById('spoiler').style.display = 'none';
+    }
+
     contactDisplay.addEventListener("click", function (e) {
-        if(e.target.classList.contains("delBtn")){
+        if (e.target.classList.contains("delBtn")) {
+            // Get the actual delete button clicked onabort.
             var chosen = e.target.getAttribute("data-id");
+            
             contacts.splice(chosen, 1);
             localStorage['contactBook'] = JSON.stringify(contacts);
-            // showContacts();
+            contactDisplay.innerHTML = '';
+            showContacts();
             alert("Please refresh this page after deleting a contact.");
+        }
+        if(e.target.classList.contains("editBtn")){
+            // Get all fields in new form
+            var name = document.getElementById('edit-name');
+            var email = document.getElementById('edit-email');
+            var tel = document.getElementById('edit-tel');
+            var id = e.target.getAttribute("data-id");
+            // Assign values to edit form
+            name.value = contacts[id].name;
+            email.value = contacts[id].email;
+            tel.value = contacts[id].tel;
+            // Display fields in form
+            document.getElementById('spoiler').style.display = 'block';
+            
+            // On submitting the form...
+            document.getElementById('saveEdit').onsubmit = function() {
+                var newName = name.value;
+                var newEmail = email.value;
+                var newTel = tel.value;
+                // Remove old data
+                contacts.splice(id, 1);
+                // Create a new object with updated info
+                let newObj = new jsonStructure(newName, newEmail, newTel);
+                contacts.push(newObj);
+                localStorage['contactBook'] = JSON.stringify(contacts);
+                // Close the form
+                CloseInput();
+            }
         }
     })
 
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+    // ACCORDION FUNCTION
+        var acc = document.getElementsByClassName("accordion");
+        var i;
 
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function () {
-            /* Toggle "active" class */
-            this.classList.toggle("active");
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                /* Toggle "active" class */
+                this.classList.toggle("active");
 
-            /* Toggle hiding and showing the active panel */
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-    }
+                /* Toggle hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
 }

@@ -8,20 +8,18 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Contacts</title>
 
-    <!-- Font-awesome -->
-    <!-- <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"> -->
-
     <!-- Custom Styling -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container">
+<!-- ADD NEW CONTACT FORM -->
         <form action="">
             <label for="name">Name : </label>
             <input type="text" name="name" id="name" placeholder="Full Name" required>
             <label for="email">E-mail : </label>
-            <input type="text" name="email" id="email" placeholder="E-mail" required>
+            <input type="" name="email" id="email" placeholder="E-mail" required>
             <label for="tel">Phone Number : </label>
             <input type="tel" name="tel" id="tel" placeholder="Phone Number" required>
             <!-- <label for="image">Add Image : </label>
@@ -31,10 +29,24 @@
 
         </form>
 
+<!-- EDIT FORM -->
+        <div id="spoiler" role="aria-hidden">
+            <form action="javascript:void(0);" id="saveEdit">
+               <label for="name">Name : </label>
+               <input type="text" name="name" id="name" placeholder="Full Name" required>
+               <label for="email">E-mail : </label>
+               <input type="email" name="email" id="email" placeholder="E-mail" required>
+               <label for="tel">Phone Number : </label>
+               <input type="tel" name="tel" id="tel" placeholder="Phone Number" required>
+            <input type="submit" value="Edit" /> <a onclick="CloseInput();" aria-label="Close">&#10006;</a>
+            </form>
+           </div>
 
+           <!-- DISPLAY AREA -->
+        <h1>Contacts</h1>
         <div class="contacts contactDisplay">
-            <h1>Contacts</h1>
-            
+
+
         </div>
     </div>
 

@@ -36,11 +36,14 @@ window.onload = function () {
     }
 
     addBtn.addEventListener("click", function () {
+        //Simple form validation. Ensure no form field is empty.
         var empty = name.value != '' && email.value != '' && tel.value != '';
         if (empty) {
             let newObj = new jsonStructure(name.value, email.value, tel.value);
             contacts.push(newObj);
+            //Create a localStorage named "contactBook" and save the contacts into it as strings.
             localStorage['contactBook'] = JSON.stringify(contacts);
+            //Clear form fields after adding the new contact.
             clearForm();
         }
 
@@ -80,7 +83,7 @@ window.onload = function () {
 
     contactDisplay.addEventListener("click", function (e) {
         if (e.target.classList.contains("delBtn")) {
-            // Get the actual delete button clicked onabort.
+            // Get the actual delete button clicked on.
             var chosen = e.target.getAttribute("data-id");
 
             contacts.splice(chosen, 1);
@@ -111,7 +114,7 @@ window.onload = function () {
                 let newObj = new jsonStructure(newName, newEmail, newTel);
                 contacts.push(newObj);
                 localStorage['contactBook'] = JSON.stringify(contacts);
-                // Close the form
+                // Close the form and reload the page
                 CloseInput();
                 refreshPage();
             }

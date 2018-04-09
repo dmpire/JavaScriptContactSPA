@@ -19,7 +19,12 @@ window.onload = function () {
         {
             name: "Tolu Falana",
             email: "falu@mail.com",
-            tel: "07030000034"
+            tel: "07030001234"
+        },
+        {
+            name: "MaryJane",
+            email: "mj@mail.com",
+            tel: "07030000234"
         },
     ];
 
@@ -52,15 +57,14 @@ window.onload = function () {
     // DISPLAY ALL CONTACTS
     function showContacts() {
         if (localStorage['contactBook'] === undefined) {
-            localStorage['contactBook'] = "[]";
-        } else {
+            localStorage['contactBook'] = JSON.stringify(contacts);
+        }
             contacts = JSON.parse(localStorage['contactBook']);
             for (let n in contacts) {
                 var str = '<button class="accordion">' + contacts[n].name + '</button>' + '<div class="panel"><p><strong>Email Address : </strong>' + contacts[n].email + '</p><p><strong>Phone Number : </strong>' + contacts[n].tel + ' </p><div class="del go-right"><a href="#" class="button delBtn" data-id="' + n + '">Delete</a></div><div class="go-right"><a href="#" class="button editBtn" data-id="' + n + '">Edit</a></div></div>';
                 contactDisplay.innerHTML += str;
             }
         }
-    }
     showContacts();
 
     // REFRESH PAGE
